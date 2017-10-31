@@ -5,7 +5,10 @@ class ItemsController < ApplicationController
   end
 
   def do_search
-    @items = Item.where("title LIKE ?", "%#{params[:title]}%")
+    match_no_match = params.fetch(:match_no_match)
+    negation = match_no_match == "match" ? "" : " NOT "
+    query_string = negation + "title LIKE ?"
+    @items = Item.where(query_string, "%#{params[:title]}%")
   end
 
   # GET /items
