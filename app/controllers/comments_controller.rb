@@ -1,30 +1,31 @@
 class CommentsController < ApplicationController
-  before_action :set_comment, only: [:show, :edit, :update, :destroy]
-
-  # GET /comments
-  # GET /comments.json
   def index
-    @comments = Comment.all
+    @item = Item.find(params[:item_id])
+    @comments = @item.comments
   end
 
-  # GET /comments/1
-  # GET /comments/1.json
   def show
+    @item = Item.find(params[:item_id])
+    @comment = Comment.find(params[:id])
   end
 
   # GET /comments/new
   def new
-    @comment = Comment.new
+    @item = Item.find(params[:item_id])
+    @comment = @item.comments.create
   end
 
   # GET /comments/1/edit
   def edit
+    @item = Item.find(params[:item_id])
+    @comment = Comment.find(params[:id])
   end
 
   # POST /comments
   # POST /comments.json
   def create
-    @comment = Comment.new(comment_params)
+    @item = Item.find(params[:item_id])
+    @comment = @item.comments.create(comment_params)
 
     respond_to do |format|
       if @comment.save
@@ -40,9 +41,11 @@ class CommentsController < ApplicationController
   # PATCH/PUT /comments/1
   # PATCH/PUT /comments/1.json
   def update
+    @item = Item.find(params[:item_id])
+    @comment = @item.comments.create(comment_params)
     respond_to do |format|
       if @comment.update(comment_params)
-        format.html { redirect_to @comment, notice: 'Comment was successfully updated.' }
+        format.html { redirect_to [@item, @comment], notice: 'Comment was successfully updated.' }
         format.json { render :show, status: :ok, location: @comment }
       else
         format.html { render :edit }
@@ -62,13 +65,9 @@ class CommentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_comment
-      @comment = Comment.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def comment_params
-      params.require(:comment).permit(:from, :message, :item_id)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def comment_params
+    params.require(:comment).permit(:from, :message, :item_id)
+  end
 end
