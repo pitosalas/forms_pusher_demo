@@ -29,6 +29,7 @@
   <div class="field">
     <%= form.label :category_id %>
     <%= form.number_field :category_id, id: :item_category_id %>
+    <%= form.select(:category_id, options_for_select(@categories)) %></p>
   </div>
 
   <div class="actions">

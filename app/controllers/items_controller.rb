@@ -20,22 +20,25 @@ class ItemsController < ApplicationController
   # GET /items/1
   # GET /items/1.json
   def show
+    @category = Category.find(@item.category_id)
   end
 
   # GET /items/new
   def new
     @item = Item.new
+    @categories = Category.all.sort_by(&:title).map { |s| [s.title, s.id] }
   end
 
   # GET /items/1/edit
   def edit
+    @category = @item.category
+    @categories = Category.all.sort_by(&:title).map { |s| [s.title, s.id] }
   end
 
   # POST /items
   # POST /items.json
   def create
     @item = Item.new(item_params)
-
     respond_to do |format|
       if @item.save
         format.html { redirect_to @item, notice: 'Item was successfully created.' }
@@ -80,6 +83,6 @@ class ItemsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def item_params
-    params.require(:item).permit(:title, :description, :owner, :category_id)
+    params.require(:item).permit(:title, :description, :owner, :category_id, :category)
   end
 end
