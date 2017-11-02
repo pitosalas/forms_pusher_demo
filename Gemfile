@@ -56,3 +56,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'binding_of_caller'
 gem 'awesome_print'
 gem 'better_errors'
+gem 'pusher'

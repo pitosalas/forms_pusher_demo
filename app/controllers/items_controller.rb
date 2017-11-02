@@ -2,13 +2,24 @@ class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
 
   def search
+    @categories = Category.all.sort_by(&:title).map { |s| [s.title, s.id] }
   end
 
   def do_search
-    match_no_match = params.fetch(:match_no_match)
-    negation = match_no_match == "match" ? "" : " NOT "
-    query_string = negation + "title LIKE ?"
-    @items = Item.where(query_string, "%#{params[:title]}%")
+    match_parm = params.fetch(:match_no_match)
+    all_any_parm = params.fetch(:all_any)
+    title_parm = params.fetch(:title)
+    cat_id_parm = params.fetch(:category_id)
+    @items = Item.do_item_search(
+          searchtitle: title_parm,
+          catid: cat_id_parm.to_i,
+          all_any: all_any_parm,
+          match_no: match_parm)
+
+    respond_to do |format|
+      format.js
+    end
+
   end
 
   # GET /items
@@ -26,6 +37,8 @@ class ItemsController < ApplicationController
   # GET /items/new
   def new
     @item = Item.new
+    @category = Category.find(1) # Set detault
+    @item.category = @category
     @categories = Category.all.sort_by(&:title).map { |s| [s.title, s.id] }
   end
 
