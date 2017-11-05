@@ -11,15 +11,14 @@ class ItemsController < ApplicationController
     title_parm = params.fetch(:title)
     cat_id_parm = params.fetch(:category_id)
     @items = Item.do_item_search(
-          searchtitle: title_parm,
-          catid: cat_id_parm.to_i,
-          all_any: all_any_parm,
-          match_no: match_parm)
+      searchtitle: title_parm,
+      catid: cat_id_parm.to_i,
+      all_any: all_any_parm,
+      match_no: match_parm)
 
     respond_to do |format|
       format.js
     end
-
   end
 
   # GET /items
