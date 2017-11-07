@@ -4,6 +4,8 @@ class CategoriesController < ApplicationController
   # GET /categories
   # GET /categories.json
   def index
+    byebug
+    good_params = params.require(:category).permit(:title, :description)
     @categories = Category.all
   end
 
@@ -41,8 +43,9 @@ class CategoriesController < ApplicationController
   # PATCH/PUT /categories/1
   # PATCH/PUT /categories/1.json
   def update
+    good_params = params.require(:category).permit(:title, :description)
     respond_to do |format|
-      if @category.update(category_params)
+      if @category.update(good_params)
         format.html { redirect_to @category, notice: 'Category was successfully updated.' }
         format.json { render :show, status: :ok, location: @category }
       else
