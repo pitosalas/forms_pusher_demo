@@ -4,8 +4,6 @@ class CategoriesController < ApplicationController
   # GET /categories
   # GET /categories.json
   def index
-    byebug
-    good_params = params.require(:category).permit(:title, :description)
     @categories = Category.all
   end
 

@@ -7,5 +7,8 @@ var pusher = new Pusher('5e157d0652d97d9fa6d4');
 var channel = pusher.subscribe('formdemo_channel');
 channel.bind('comment_event', function(data) {
 	var elt_id = 'comment-count-'+data.item_id;
-	document.getElementById(elt_id).innerHTML = data.count;
+  var elt = document.getElementById(elt_id);
+	if (elt != null) {
+    elt.innerHTML = data.count;
+  }
 });

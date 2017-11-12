@@ -1,19 +1,4 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>From:</strong>
-  <%= @comment.from %>
-</p>
-
-<p>
-  <strong>Message:</strong>
-  <%= @comment.message %>
-</p>
-
-<p>
-  <strong>Item:</strong>
-  <%= @comment.item_id %>
-</p>
+<%= render 'show' %>
 
 <%= link_to 'Edit', edit_item_comment_path(@item, @comment) %> |
 <%= link_to 'Back', item_comments_path(@item) %>

@@ -1,7 +1,9 @@
 class Item < ApplicationRecord
   belongs_to :category
   has_many :comments
-
+  validates_associated :comments
+  validates :title, :description, :owner, presence: true
+  
   # all_any: "all" | "any"
   # cat: 0 | cat_id
   # title: nil | search title field

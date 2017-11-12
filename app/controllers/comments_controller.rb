@@ -36,7 +36,7 @@ class CommentsController < ApplicationController
     respond_to do |format|
       if @comment.save
         push_count(@item.id, @item.comments.count)
-        format.html { redirect_to [@item, @comment], notice: 'Comment was successfully created.' }
+        format.html { redirect_to @item, notice: 'Comment was successfully created.' }
         format.json { render :show, status: :created, location: @comment }
       else
         format.html { render :new }

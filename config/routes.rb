@@ -5,7 +5,7 @@ Rails.application.routes.draw do
       get 'search'
       get 'do_search'
     end
-    resources :comments
+    resources :comments, except: :index
   end
   root 'items#index'
 end

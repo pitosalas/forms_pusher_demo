@@ -1,10 +1,10 @@
 <div class="row">
   <div class="col">
     <h2>Items</h2>
-    <table>
+    <table class="table">
       <thead>
         <tr>
-          <th>Title</th>
+          <th>Name</th>
           <th>Description</th>
           <th>Owner</th>
           <th>Category</th>
@@ -15,8 +15,8 @@
       <tbody>
         <% @items.each do |item| %>
           <tr>
-            <td><%= item.title %></td>
-            <td><%= item.description %></td>
+            <td><a href="<%= item_path(item.id) %>"><%= item.title %></a></td>
+            <td><a href="<%= item_path(item.id) %>"><%= item.description %></a></td>
             <td><%= item.owner %></td>
             <td><%= item.category.title %></td>
             <td><%= link_to 'Comment', new_item_comment_path(item) %>
